@@ -1,6 +1,78 @@
 /* Including fonts */
 @font-face {
-  font-family: "";
-  src: url("../../fonts/");
+  font-family: "Circe";
+  src: url("../../fonts/Circe-ExtraLight.otf");
+  font-style: normal;
+  font-weight: 100; }
+
+@font-face {
+  font-family: "Circe";
+  src: url("../../fonts/Circe-Light.otf");
+  font-style: normal;
+  font-weight: 300; }
+
+@font-face {
+  font-family: "Circe";
+  src: url("../../fonts/Circe.otf");
+  font-style: normal;
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Circe";
+  src: url("../../fonts/Circe-Bold.otf");
+  font-style: normal;
+  font-weight: 700; }
+
+@font-face {
+  font-family: "Circe";
+  src: url("../../fonts/Circe-ExtraBold.otf");
+  font-style: normal;
+  font-weight: 800; }
+
+@font-face {
+  font-family: "Berlingske Serif Tx - B lk";
+  src: url("../../fonts/BerlingskeSerifTx-Blk.ttf");
+  font-style: normal;
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Berlingske Serif Tx - D Bd";
+  src: url("../../fonts/BerlingskeSerifTx-DBd.ttf");
+  font-style: normal;
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Berlingske Serif Tx - Md";
+  src: url("../../fonts/BerlingskeSerifTx-Md.ttf");
+  font-style: normal;
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Berlingske Serif Tx - X Bd";
+  src: url("../../fonts/BerlingskeSerifTx-XBd.ttf");
+  font-style: normal;
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Berlingske Serif Tx - B lk Italic";
+  src: url("../../fonts/BerlingskeSerifTx-BlkItalic.ttf");
+  font-style: normal;
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Berlingske Serif Tx - D Bd Italic";
+  src: url("../../fonts/BerlingskeSerifTx-DBdItalic.ttf");
+  font-style: normal;
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Berlingske Serif Tx - M d Italic";
+  src: url("../../fonts/BerlingskeSerifTx-MdItalic.ttf");
+  font-style: normal;
+  font-weight: 400; }
+
+@font-face {
+  font-family: "Berlingske Serif Tx - X Bd Italic";
+  src: url("../../fonts/BerlingskeSerifTx-XBdItalic.ttf");
   font-style: normal;
   font-weight: 400; }

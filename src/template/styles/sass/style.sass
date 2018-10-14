@@ -3,12 +3,13 @@
 @import fonts.sass
 @import grid.sass
 @import '../../libs/fancybox/dist/jquery.fancybox.css'
+@import '../../libs/slick-carousel/slick/slick.css'
 
 
 /* Global settings */
-$font-size: 16px
-$font-family-1: 'Tahoma', sans-serif
-$color-1: #000
+$font-size: 18px
+$font-family-1: 'Circe', sans-serif
+$color-1: #212121
 
 
 *, :before, :after
@@ -22,8 +23,12 @@ body
 	font-family: $font-family-1
 	color: $color-1
 	background: white
-
-
+h1, h2, h3
+	font-size: inherit
+	font-family: inherit
+	font-weight: inherit
+u
+	text-decoration: none
 
 ul
 	display: flex
@@ -39,6 +44,7 @@ a
 	text-decoration: none
 	border-bottom: 1px solid transparent
 	transition: .3s
+	outline: none !important
 
 img
 	display: block
@@ -62,6 +68,20 @@ input, textarea, button
 		font-family: $font-family-1
 		background: white
 		width: 100%
+		height: 50px
+		font-size: 16px
+		border: 1px solid #e0e0e0
+		background-color: #f1f1f1
+		padding: 3px 20px 0
+		&::placeholder
+			opacity: 1
+			color: #828282
+
+	&__desc
+		font-size: 14px
+		margin-top: 3px
+		display: none
+		
 
 
 .textarea
@@ -79,11 +99,43 @@ input, textarea, button
 	display: flex
 	align-items: center
 	justify-content: center
-	font-size: $font-size
+	font-size: 16px
 	font-family: $font-family-1
 	cursor: pointer
 	text-align: center
 	transition: .3s
+	height: 40px
+	font-weight: 700
+	padding: 2px 5px 0
+	&_color
+		&-white
+			color: #fff
+		&-black
+			color: $color-1
+	&_bg
+		&-blue
+			background-color: #00a3f2
+		&-yellow
+			background-color: #ffb200
+	&_border
+		&-white
+			border: 1px solid #fff
+		&-blue
+			border: 1px solid #00a3f2
+		&-black
+			border: 1px solid $color-1
+	&_hover-bg-yellow
+		&:hover
+			background: #ffb200
+	&_hover-border-yellow
+		&:hover
+			border-color: #ffb200
+	&_normal
+		height: 50px
+	&_big
+		font-size: 18px
+		height: 70px
+
 
 .input input, .textarea textarea
 	transition: .3s
@@ -105,14 +157,1370 @@ input, .btn, .slick-slide, textarea
 	margin-left: auto
 	margin-right: auto
 
+.title
+	font-size: 44px
+	text-align: center
+	font-family: "Berlingske Serif Tx - D Bd"
 
 
+.subtitle
+	font-size: 34px
+	font-family: "Berlingske Serif Tx - Md"
+	text-align: center
 .main-wrap
-	// overflow-x: hidden
+	position: relative
+	overflow-x: hidden
+	max-width: 1920px
+	margin-left: auto
+	margin-right: auto
 
 
+.header
 
 
+.panel
+	z-index: 10
+	position: fixed
+	width: 1920px
+	left: 50%
+	top: 0
+	padding-top: 22px
+	padding-bottom: 18px
+	background: rgba(0,0,0,.2)
+	transition: .3s
+	transform: translateX(-50%)
+	&:hover
+		background: rgba(0,0,0,1)
+	&_scroll
+		background: rgba(0,0,0,.8)
+	&__nav
+		li
+			position: relative
+			margin-right: 50px
+			&:last-of-type
+				margin-right: 0
+			ul
+				width: 250px
+				position: absolute
+				top: 32px
+				left: 0
+				background-color: #fff
+				border-radius: 15px
+				padding: 22px 20px 22px 20px
+				margin-left: -22px
+				transition: .3s
+				opacity: 0
+				transform: translateY(50px)
+				visibility: hidden
+				box-shadow: 0 0 10px 1px rgba(0,0,0,.2)
+				&:before
+					content: ''
+					position: absolute
+					top: -15px
+					left: 0
+					right: 0
+					height: 20px
+				a
+					font-size: 16px
+					color: #212121
+				li
+					width: 100%
+					margin-right: 0
+			&.has-subnav
+				> a
+					position: relative
+					padding-right: 21px
+					&:before, &:after
+						content: ''
+						display: block
+						width: 15px
+						height: 9px
+						background-position: center
+						background-repeat: no-repeat
+						position: absolute
+						top: 9px
+						right: 0
+						transition: .3s
+					&:before
+						opacity: 0
+						transform: rotate(180deg)
+						background-image: url('../../img/arrow-top.png')
+					&:after
+						background-image: url('../../img/arrow-down.png')
+					&:hover
+						&:before
+							transform: rotate(0deg)
+							opacity: 1
+						&:after
+							opacity: 0
+				&:hover
+					ul
+						opacity: 1
+						visibility: visible
+						transform: translateY(0px)
+		a
+			&:hover
+				color: #00a3f2
+		
+	&__search
+		margin-left: auto
 
+
+.search-block
+	width: 280px
+	&__input
+		background: none
+		padding-left: 15px
+		padding-right: 15px
+		font-size: 16px
+		font-family: $font-family-1
+		border-bottom: 1px solid rgba(255,255,255,.15)
+		width: 100%
+		padding-bottom: 4px
+		color: #fff
+		transition: .3s
+		&::placeholder
+			opacity: 1
+			color: #9b9b9b
+		&:focus
+			border-color: #fff
+			&::placeholder
+				// color: #00a3f2
+
+	&__btn
+		display: none
+		
+.arrows
+	.slick-arrow
+		position: absolute
+		background: none
+		font-size: 0
+		cursor: pointer
+		&:before, &:after
+			width: 32px
+			height: 59px
+			content: ''
+			display: block
+			transition: .3s
+		&:after
+			position: absolute
+			top: 0
+			left: 0
+			right: 0
+			bottom: 0
+	.slick-prev
+		left: 0
+		&:before
+			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAA7CAYAAAAaa4isAAABXklEQVRYR83ZDXHCQBDF8bcOkNA6qITipJVQRa0DJGABB1iog+0kQ5hjSHJf7+0VAfx/c3PcLYlhwMfdD2b2O6Utuu/ubwDOAL7M7CcUkMQPAKYVeA0DrMSPZnYJAWzFQ/bAXlwOyMWlgJK4DFAalwBq4nRAbZwKaInTAK1xCqAn3g3ojXcBGPFmACveBGDGqwHseBVAES8GqOJFAGU8C1DHdwHu/g7gBGAZIOcZjj1Fr86E7v4B4PsWm6ZXSXx1BSLjT4Do+ANgRPwOGBWfAe7+AuCa7O7P6T8be7dvfd/8Kxi6AotsFOLhHBiBeDqIohH/7yRM9sS4uyBBLI9TZBdS9gGF+krOAm7nhGwligBKRDFAhagCKBDVADaiCcBENANYiC4AA9EN6EVQAD0IGqAVQQW0IOiAWoQEUIOQAUoRUkAJQg7IIUIAe4gwwAYi7q3ZyqAb/94wQdzfnP4BLBFZZc3iLdEAAAAASUVORK5CYII=')
+
+	.slick-next
+		right: 0
+		&:before
+			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAA7CAYAAAAaa4isAAABX0lEQVRYR83Z23GDQAyFYakDt5AO0oJLcAdJRSkhKSEd2CW4g7SQDpQRA4wvXCStjja8MPDyfywzsLBM4yYiB2b+nY6r9qwhEXkjog8iOjLztSquHdYrJ6IfItK9jkApYhqBVyI690AMgPE2dEHMgF6IO0APxBOgGrEIqESsAqoQm4AKxC4AjTABkAgzAIVwARAINyAbEQJkIsKAFcSJmS+e+UQTYAGhp96Z+cuKaAa0IlIALYg0QBSRCogg0gFeBATgQcAAVgQUYEHAAXuIEsAWogwwIvQb9PPmMf1SBhCR2y+v+Z1RAliLqwIO2IrDAXtxKMAShwGscQjAE08HeOOpgEg8DRCNpwBa4s2Ah7j+4tMp+bd1St4EWIiH/i+GHsVZ8dAIZMbdgOy4C4CImwGouAmAjO8C0PFNQEV8FVAVXwRUxp8A1fE7QI/4DOgVHwD/ZdWs37rhNHnotXL6B3ygRGgGHNI4AAAAAElFTkSuQmCC')
+
+	&_gray
+		.slick-arrow
+			&:after
+				opacity: 0
+			&:hover
+				&:before
+					opacity: 1
+				&:after
+					opacity: 1
+
+		.slick-prev
+			&:before
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAA7CAYAAAAaa4isAAABcklEQVRYR83Z0U0DMQzGcbss0BFgg44Ac/SFjFAhMQQV6ghBQhWPjMAKbMAK94xEg64iiLbXOyf5bNMB+v8pSnO+hsnhs4lxvgqh69Ns3X+I28WM6Y0Tre7C8skUkONENCei7iJ9XpkBjuO7RDf3YfluAjgXN9kDY3F1wFRcFSCJqwGkcRVASRwOKI1DATVxGKA2DgG0xJsBrfEmACJeDUDFqwDIeDEAHS8CaMTFAK24CKAZnwRox0cB6/h8zTx7zQNknuHQU/TgTPgYt7eJKf7EOq344ApYxk8A1vEDgEf8F+AV3wM28eXyi3cfeXdzotC/s6F3+7nv2/8KXFcgy7wQB+eAB+LkILJG/L+TMO8J12dBRrg+Da0Qon9INFdCBOhXQwshBmghigAaiGIAGlEFQCKqAShEEwCBaAa0IiCAFgQMUIuAAmoQcEApQgVQglADSBGqAAlCHTCFMAGMIcwAQwjTW7PjGdPl3jAj/t6cfgNWxtIFm68HgAAAAABJRU5ErkJggg==')
+				
+			&:after
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAA7CAYAAAAaa4isAAABaklEQVRYR83Zy00DMRSF4XM7SAmhA0qAdVZ0ACVQEXSQRRSxTAt0QAuzR8goYWIlmsn4dc41U0D+T5bHdsaGDk/YYmVPGI5p8+6HPe4RcIDh1TZ4dwXEOLACMOAbd26ASdzwaBt8ugBuxV3mwFJcDkjFpYCcuAyQG5cASuJ0QGmcCqiJ0wC1cQqgJd4MaI03ARjxagArXgVgxosB7HgRQBHPBqjiWQBlPAlQxxcBYYcHGLY4HyDHMxz7FD17Jgx7PCPgbYwNEMVnR8AzPgF4x68APeIR0Ct+AoQPrPGDrzi7DS/H/2zs2X7r905vQdcROMt6Ia7WgR6IyULkjfh/K2GcEz33gouJ+fc5RbghJT9QqLfkJGBcJ2QjkQVQIrIBKkQRQIEoBrARVQAmohrAQjQBGIhmQCuCAmhB0AC1CCqgBkEHlCIkgBKEDJCLkAJyEHJACuECWEK4AWYRnrdmk4Nuj3vDiLi4Of0FJpBWxxyYrkMAAAAASUVORK5CYII=')
+		.slick-next
+			&:before
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAA7CAYAAAAaa4isAAABdUlEQVRYR83Zz03DMBTH8edW4twV2IAVOgJXKiQ8AgI6RCXUEcyldzaAEdiAFbpAa+SoidQ2f96z3++ZXKKcvp/44Nixo9O1DWHx7P2+fba6uxR6D7un6Gh7jLRc+9WPVTx1XHrzg7v5JaIFEe2tEc0IbMLububoqwaiAdREdIBaiDNADcQVwBrRC7BEDAKsEKMAC8QkAI1gAZAINgCFEAEQCDFAG5EF0ERkA/oQMR7v3/zjt2Q9UQToQZCL5F/86oOLKAaUIlQAJQg1QC5CFZCDUAdIERCABAEDcBFQAAcBB0whTABjCDNAQpz2oKGdpudxdmsGuNj+dd8ME8BQPI0EHDAWhwOm4lAAJw4DcOMQgCSuDpDGVQE5cTVAblwFUBIvBlz+XaPo/Kt/+OQuyYsAWr/2sqZirXjWCGjGxQDtuAiAiLMBqDgLgIxPAtDxUYBFfBBgFe8FWMavANbxM0CNeAeoFW8A/+LUrOq5Ybt4qHVy+gcpnKNARGFmIgAAAABJRU5ErkJggg==')
+				
+			&:after
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAA7CAYAAAAaa4isAAABaElEQVRYR83ZvW3DMBCG4e9gpPcK3sArpDZceIN4Io/gbJA0rpMRskFW0AY0aEiCFf3dHe+OUSOoeh9RAEWJhPZIH9jSCU13HXWmHEo3vCHhAsIrHfATFc8dyneOF/wC2AJoohHdCOyR8FUD8QC0j6EKogfUQgwANRAjQDRiEhCJmAVEIRYBEYhVgDeCBfBEsAFeCBHAAyEGWCNUAEuEGjCJSDjREd+S9UQRYAIBEM50wDsXUQwoRZgAShBmAC3CFKBBmAOkCBeABOEG4CJcARyEO2ANEQJYQoQBWkT+Br320/QGuzBAuuH5y6t/Z4QA5uJ5JNwBS3F3wFrcFcCJuwG4cReAJG4OkMZNAZq4GUAbNwGUxIsBf+INEs50xCd3SV4EGMWVPzlVU7FVXDUClnExwDouAnjE2QCvOAvgGV8FeMcXARHxWUBUfBIQGR8BouMDQI14D6gVfwD+y65ZvX3DbvFQa+f0DsZgQiGD1fW0AAAAAElFTkSuQmCC')
+
+			
+
+
+.header
+	position: relative
+	color: #fff
+	min-height: 282px
+	background: url('../../img/header.png') no-repeat center top
+	a
+		color: #fff
+	&_main
+		background: none
+		.header
+			&__data
+				top: 110px
+	&_post
+		min-height: 590px
+		padding-top: 270px
+		.header
+			&__title
+				font-size: 34px
+				text-align: center
+				max-width: 805px
+				margin-left: auto
+				margin-right: auto
+				margin-bottom: 37px
+
+			&__date
+				text-align: center
+				span
+					display: inline-flex
+					align-items: center
+					justify-content: center
+					height: 30px
+					padding: 0 17px
+					background-color: #00a3f2
+
+				
+				
+				
+	
+	&__data
+		z-index: 1
+		position: absolute
+		top: 95px
+		left: 0
+		right: 0
+		
+
+	&__logo
+		width: 220px
+		margin-right: 80px
+
+	&__lang
+		padding-top: 2px
+		
+
+	&__socials
+		margin-right: 65px
+		margin-left: 50px
+
+	&__phone
+		font-size: 22px
+		font-weight: 700
+		margin-right: auto
+		
+	&__btn-callback
+		width: 240px
+		bottom: 4px
+
+	&__slider
+		font-size: 0
+		.slick-arrow
+			z-index: 1
+			top: 50%
+			transform: translateX(-50%)
+			opacity: .2
+			transition: .3s
+			margin-top: -60px
+			&:hover
+				opacity: 1
+		.slick-prev
+			left: 50%
+			margin-left: -700px
+		.slick-next
+			right: 50%
+			margin-right: -700px
+		&-item
+			background-position: center top
+			background-repeat: no-repeat
+			min-height: 910px
+
+		
+	&__content
+		padding-top: 320px
+		
+	&__title
+		font-size: 80px
+		font-family: "Berlingske Serif Tx - D Bd"
+		margin-bottom: 5px
+
+	&__desc
+		font-size: 22px
+		max-width: 775px
+
+	&__btn
+		width: 330px
+		margin-top: 48px
+		
+		
+
+		
+		
+
+
+.lang-switcher
+	li
+		margin-right: 27px
+		&:last-of-type
+			margin-right: 0
+		&.selected, &:hover
+			border-bottom: 1px solid #fff
+	a
+		display: flex
+		align-items: center
+
+	img
+		max-width: none !important
+		max-height: none !important
+		margin-right: 9px
+
+	img, span
+
+
+		
+
+
+.socials
+	ul
+		align-items: center
+	li
+		margin-right: 10px
+		&:last-of-type
+			margin-right: 0
+	a
+		display: flex
+		justify-content: center
+		align-items: center
+		width: 40px
+		height: 40px
+		border-radius: 50%
+		border: 1px solid rgba(255,255,255,.25)
+		&:hover
+			border-color: #ffb200
+			background-color: #ffb200
 .hidden-lg
 	display: none
+
+
+
+.this
+	padding-top: 35px
+	padding-bottom: 8px
+	&__title
+		margin-bottom: 65px
+		
+	&__item
+		width: 25%
+		
+	&__icon
+		height: 95px
+		margin-bottom: 30px
+		img
+			margin-left: auto
+			margin-right: auto
+
+	&__text
+		font-size: 19px
+		line-height: 22px
+		font-weight: 700
+		text-align: center
+		
+.about
+	padding-top: 180px
+	min-height: 670px
+	background: url('../../img/bg-3.png') no-repeat center top
+	&__title
+
+		
+	&__content
+		width: 585px
+		padding-right: 40px
+
+	&__text
+		line-height: 26px
+		margin-bottom: 25px
+		p
+			margin-bottom: 15px
+			&:last-of-type
+				margin-bottom: 0
+		
+	&__btn
+		width: 240px
+		
+
+	&__video
+		width: calc(100% - 585px)
+		
+
+.terms
+	padding-top: 8px
+	padding-bottom: 35px
+	&_bg
+		padding-top: 120px
+		min-height: 640px
+		background: url('../../img/bg-3.png') no-repeat center top
+	&__title
+		margin-bottom: 40px
+		
+	&__list
+		margin-left: -15px
+		margin-right: -15px
+		
+	&__item
+		position: relative
+		width: calc(50% - 30px)
+		padding-top: 9px
+		margin-left: 15px
+		margin-right: 15px
+		text-align: center
+		border-bottom: 1px dashed #dcdcdc
+		padding-bottom: 32px
+		margin-bottom: 15px
+		&:nth-of-type(even)
+			&:after
+				display: none
+		&:nth-of-type(1), &:nth-of-type(2)
+			&:after
+				top: 0
+		&:nth-last-of-type(1), &:nth-last-of-type(2)
+			border-bottom: none
+		&:after
+			content: ''
+			position: absolute
+			display: block
+			top: 15px
+			bottom: 30px
+			right: -15px
+			border-right: 1px dashed #dcdcdc
+
+	&__subtitle
+		color: #00a3f2
+		font-size: 24px
+		font-family: "Berlingske Serif Tx - Md"
+		margin-bottom: 13px
+
+	&__btn
+		width: 320px
+		margin-left: auto
+		margin-right: auto
+		
+		
+
+.advantages
+	padding-top: 160px
+	padding-bottom: 50px
+	color: #fff
+	min-height: 720px
+	background: url('../../img/advantages.png') no-repeat center top
+	&__title
+		margin-bottom: 9px
+		
+	&__desc
+		font-size: 22px
+		text-align: center
+		margin-bottom: 35px
+
+	&__list
+		max-width: 700px
+		margin-left: auto
+		margin-right: auto
+		
+
+	&__item
+		width: 50%
+		text-align: center
+		margin-bottom: 20px
+						
+
+	&__subtitle
+		font-size: 46px
+		color: #00a3f2
+		font-family: "Berlingske Serif Tx - Md"
+
+	&__text
+		font-size: 20px
+		line-height: 24px
+		
+
+.jobs
+	padding-top: 28px
+	padding-bottom: 18px
+	&_bg
+		padding-top: 140px
+		min-height: 971px
+		background: url('../../img/bg-7.png') no-repeat center top
+	&__title
+		margin-bottom: 50px
+		
+	&__list
+		margin-left: -15px
+		margin-right: -15px
+		
+	&__item
+		width: calc(33.333% - 30px)
+		margin-left: 15px
+		margin-right: 15px
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15)
+		border-radius: 4px
+		margin-bottom: 30px
+		background-color: #fff
+
+	&__img
+		height: 220px
+		background-position: center
+		background-repeat: no-repeat
+		background-size: cover
+		border-radius: 4px 4px 0 0
+
+	&__body
+		text-align: center
+		padding: 23px 25px 17px
+		
+
+	&__subtitle
+		font-size: 28px
+		font-family: "Berlingske Serif Tx - Md"
+		margin-bottom: 11px
+
+	&__data
+		li
+			width: 100%
+			border-bottom: 1px solid #e0e0e0
+			padding-top: 9px
+			padding-bottom: 4px
+		strong
+			color: #979797
+			font-size: 13px
+			line-height: 13px
+			font-weight: 400
+			text-transform: uppercase
+		u
+			text-decoration: none
+		strong, u
+			display: block
+
+		
+		
+
+	&__btn
+		margin-top: 15px
+		width: 290px
+		margin-left: auto
+		margin-right: auto
+			
+		
+.faq
+	padding-top: 130px
+	padding-bottom: 50px
+	min-height: 895px
+	background: url('../../img/bg-5.png') no-repeat center top
+	&_no-bg
+		background: none
+		padding-top: 70px
+		padding-bottom: 30px
+		min-height: 1px
+		.faq
+			&__title
+				display: none
+			&__nav
+				li
+					border: 1px solid transparent
+					box-shadow: none
+					&.ui-tabs-active
+						border-color: #e0e0e0
+
+			&__text
+				border: 1px solid #e0e0e0
+				box-shadow: none
+				
+				
+				
+	&__title
+		margin-bottom: 28px
+		
+	&__nav
+		margin-bottom: -3px
+		li
+			position: relative
+			flex: 1 1 100px
+			border-radius: 4px 4px 0 0
+			transition: .3s
+			&.ui-tabs-active
+				background-color: #fff
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15)
+				&:before
+					z-index: 2
+					position: absolute
+					display: block
+					content: ''
+					bottom: 0
+					left: 0
+					right: 0
+					height: 5px
+					background-color: #fff
+				u
+					color: #00a3f2
+			a
+				display: block
+				height: 100%
+				padding: 23px 20px 6px
+			u
+				font-size: 24px
+				display: block
+				font-family: "Berlingske Serif Tx - Md"
+				margin-bottom: 8px
+			span
+				display: block
+				font-size: 16px
+				line-height: 22px
+				color: #828282
+				max-width: 185px
+
+	&__text
+		z-index: 1
+		position: relative
+		background-color: #fff
+		padding: 26px 42px 17px
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15)
+		border-radius: 4px
+		min-height: 422px
+		h2
+			font-size: 22px
+			font-weight: 700
+			margin-bottom: 10px
+		p
+			margin-bottom: 15px
+
+
+.reviews
+	position: relative
+	padding-top: 18px
+	padding-bottom: 35px
+	&_bg
+		padding-top: 140px
+		padding-bottom: 130px
+		margin-bottom: -80px
+		background: url('../../img/bg-6.png') no-repeat center top
+	&_marks
+		padding-top: 130px
+		padding-bottom: 110px
+		margin-bottom: -80px
+		background: url('../../img/bg.png') no-repeat center top
+	&_flag
+		.case
+			&:after
+				content: ''
+				position: absolute
+				top: -275px
+				left: -255px
+				width: 259px
+				height: 229px
+				background: url('../../img/flag.png') no-repeat center
+	&_statue
+		.case
+			&:after
+				content: ''
+				position: absolute
+				bottom: -100px
+				left: -255px
+				width: 227px
+				height: 413px
+				background: url('../../img/statue.png') no-repeat center
+	&_pisa
+		.case
+			&:after
+				content: ''
+				position: absolute
+				bottom: -100px
+				left: -285px
+				width: 141px
+				height: 415px
+				background: url('../../img/pisa.png') no-repeat center
+
+	&__title
+		margin-bottom: 40px
+		
+	&__list
+		position: relative
+		padding-left: 100px
+		padding-right: 100px
+		.slick-arrow
+			top: 68px
+		.slick-prev
+			left: -100px
+		.slick-next
+			right: -100px
+	&__item
+		display: flex !important
+		
+
+	&__data
+		width: 195px
+		margin-right: 40px
+						
+	&__img
+		width: 195px
+		height: 195px
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: center
+		border-radius: 50%
+		margin-bottom: 15px
+
+	&__name
+		font-size: 24px
+		font-family: "Berlingske Serif Tx - Md"
+		text-align: center
+	
+	&__socials
+		margin-top: 10px
+		ul
+			justify-content: center
+		li
+			margin-left: 5px
+			margin-right: 5px
+		a
+			&:hover
+				transform: scale(.9)
+		
+		
+	&__content
+		width: calc(100% - 195px - 40px)
+		
+	&__text
+		font-style: italic
+		line-height: 26px
+		margin-bottom: 20px
+		
+
+
+.media
+	ul
+		justify-content: space-between
+	a
+		position: relative
+		display: block
+		width: 215px
+		height: 125px
+		&:hover
+			transform: scale(.95)
+		&[data-type="video"]
+			&:before
+				content: ''
+				position: absolute
+				top: 0
+				left: 0
+				right: 0
+				bottom: 0
+				background-color: rgba(12, 15, 16, 0.7)
+			&:after
+				display: block
+				content: ''
+				position: absolute
+				top: 50%
+				left: 50%
+				width: 31px
+				height: 31px
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAfCAYAAAAfrhY5AAACAUlEQVRYR8VXi1EUURDszgAygAwgArkI1AiACNQIhAiQCMAIhAjQCMQIJAPIoKnemnc1vNt3u+5at1N1db95r3v+s8REkXQAwK8nkk9TruHYQ5I+AHgP4CRA66Mm8BPAPcm7MfcOgkv6DOBTA7CFYSLXJL9tI9EEl3QE4AaA37O8AHgE8Cv9+C709ipd652T9PuG9IJLOgNwBSBfdgvgO0m7tlckOSSnAHy+iMmawEYoNsAjtj/S4a3s+1g0vPaxJvAGPA49JItvSZ6PSZ4GCYeteMEeWOUQ1OC/U4xnARcykjKBR5LH5b81eGS142x5ozTV8kQgG/WlVEEG/5vK6biVoVOIRDhNwOKmdOgPHXiVZIPuDlf+GarjTLRyf5d8BTzHxUnRLKcgq7jYei6jwfYaZehktnQGFvDi8heS+0OulVTArdqs4/oeSc9RSZ3rC/jaEpKrfwQv6m6llyRNplck2XI3ItAS08mWW3z4YiJ4VyXb2qkk3/017j80uJmUWMwFX8ezz4AKfPW/LXfiOZN7B8mG5XX2zoi5B48byPiYB/ii2T61zu1eu3lWnXtFKmN0TIezrjvcYGWUxGt2uMr1/rq73h7g3tWWmWpBYJl5HuBeFpfZZIKA1x5nf5Hd7HApM539JrDb7TURWGZvz0NhkSeWeiot8qy2ZTGY/ZT6CvT3XqYPScePAAAAAElFTkSuQmCC')
+				transform: translate(-50%, -50%)
+
+
+.price
+	min-height: 985px
+	color: #fff
+	padding-top: 158px
+	background: url('../../img/montain.png') no-repeat center top
+	&_no-bg
+		padding-top: 0
+		background: none
+		color: $color-1
+		min-height: 1px
+		.price
+			&__item
+				border: 1px solid #e0e0e0
+				border-radius: 4px
+
+		.share
+			border-radius: 4px
+			border: 3px solid #ffb200
+			margin-top: 80px
+			padding-top: 35px
+			padding-bottom: 35px
+
+				
+	&__title
+		max-width: 560px
+		margin-left: auto
+		margin-right: auto
+		margin-bottom: 60px
+
+	&__list
+		margin-left: -15px
+		margin-right: -15px
+		
+
+	&__item
+		width: calc(50% - 30px)
+		margin-left: 15px
+		margin-right: 15px
+		background-color: #fff
+		padding: 42px 80px 0
+
+	&__subtitle
+		color: #00a3f2
+		margin-bottom: 20px
+		
+	&__text
+		font-size: 20px
+		line-height: 26px
+		color: $color-1
+		text-align: center
+		
+	&__price
+		font-size: 34px
+		color: #efa506
+		font-family: "Berlingske Serif Tx - Md"
+		text-align: center
+		margin-top: 15px
+		margin-bottom: 20px
+		
+	&__btn
+		width: 240px
+		margin-left: auto
+		margin-right: auto
+		margin-bottom: -35px
+
+.share
+	padding-top: 65px
+	&__title
+		color: #ffb200
+		margin-bottom: 14px
+	&__text
+		font-size: 24px
+		text-align: center
+		margin-bottom: 23px
+
+	&__btn
+		width: 240px
+		margin-left: auto
+		margin-right: auto
+		
+
+		
+		
+		
+		
+.news
+	padding-top: 32px
+	padding-bottom: 11px
+	&__title
+		max-width: 565px
+		margin-left: auto
+		margin-right: auto
+		margin-bottom: 40px
+
+	&__list
+		margin-left: -15px
+		margin-right: -15px
+		
+
+	&__item
+		width: calc(25% - 30px)
+		margin-left: 15px
+		margin-right: 15px
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15)
+		margin-bottom: 30px
+		border-radius: 4px
+
+	&__img
+		background-position: center
+		background-repeat: no-repeat
+		background-size: cover
+		width: 100%
+		height: 200px
+		border-radius: 4px 4px 0 0
+
+	&__date
+		display: flex
+		justify-content: center
+		align-items: center
+		color: #fff
+		width: 110px
+		margin-left: auto
+		margin-right: auto
+		font-size: 13px
+		height: 30px
+		padding-bottom: 2px
+		background-color: #00a3f2
+		margin-top: -15px
+		margin-bottom: -15px
+	&__text
+		padding: 30px 20px 25px
+		border-radius: 4px
+		font-size: 20px
+		line-height: 28px
+		text-align: center
+		font-family: "Berlingske Serif Tx - Md"
+		a
+			display: inline
+			&:hover
+				border-color: $color-1
+		
+	&__btn
+		width: 290px
+		margin-top: 15px
+		margin-left: auto
+		margin-right: auto
+		
+		
+		
+.subpage
+	&__nav
+		border-bottom: 1px solid #e0e0e0
+		text-align: center
+		ul
+			justify-content: center
+		li
+			&:hover, &.selected
+				a
+					&:after
+						background-color: #00a3f2
+		a
+			font-size: 20px
+			display: block
+			position: relative
+			padding-left: 26.3px
+			padding-right: 26.3px
+			padding-bottom: 6px
+			&:after
+				content: ''
+				position: absolute
+				left: 0
+				right: 0
+				bottom: -3px
+				height: 3px
+				transition: .3s
+				background-color: transparent
+
+	&__title
+		text-align: center
+		// max-width: 570px
+		margin-left: auto
+		margin-right: auto
+		margin-top: 38px
+		&_mt-
+			margin-top: 0
+	
+	&__desc
+		max-width: 830px
+		margin-left: auto
+		margin-right: auto
+		text-align: center
+		font-size: 22px
+		line-height: 30px
+		
+
+	&__wrap
+		margin-top: 38px
+		
+
+
+	&__text
+
+		
+		
+
+.text
+	line-height: 26px
+	h1, h2, h3
+		display: block
+	h1
+		font-size: 44px
+		line-height: 56px
+		font-family: "Berlingske Serif Tx - Md"
+		margin-bottom: 25px
+	h2
+		font-size: 36px
+		font-family: "Berlingske Serif Tx - Md"
+		margin-bottom: 28px
+		&.pt
+			padding-top: 19px
+	h3
+		font-size: 22px
+		font-weight: 700
+		margin-bottom: 15px
+	ul
+		li
+			width: 100%
+			position: relative
+			padding-left: 11px
+			margin-bottom: 17px
+			&:last-of-type
+				margin-bottom: 0
+			&:before
+				position: absolute
+				content: ''
+				width: 4px
+				height: 4px
+				top: 9px
+				left: 0
+				background-color: #00a3f2
+				border-radius: 50%
+	p
+		margin-bottom: 15px
+	.pt
+		padding-top: 25px
+	.left
+		float: left
+		margin-right: 55px
+	.right
+		float: right
+		margin-left: 55px
+	.block
+		margin-bottom: 50px
+		&:last-of-type
+			margin-bottom: 0
+
+
+
+.block, .text
+	&:before, &:after
+		content: ''
+		display: table
+	&:after
+		clear: both
+
+
+.border-top
+	border-top: 1px solid #e0e0e0
+	padding-top: 35px
+	margin-top: 40px
+
+.border-bottom
+	border-bottom: 1px solid #e0e0e0
+	padding-bottom: 35px
+	margin-bottom: 40px
+
+.steps
+	&__title
+		margin-bottom: 32px
+	&__item
+		position: relative
+		width: 25%
+		padding: 17px 25px 0
+		margin-bottom: 15px
+		margin-top: 15px
+		border-right: 1px dashed #dcdcdc
+		&:nth-last-of-type(1), &:nth-last-of-type(2), &:nth-last-of-type(3), &:nth-last-of-type(4)
+			&:after
+				display: none
+		&:nth-of-type(4n)
+			border-right: none
+		&:after
+			position: absolute
+			content: ''
+			left: 0
+			right: 0
+			bottom: -15px
+			border-bottom: 1px dashed #dcdcdc
+
+
+	&__count
+		font-size: 40px
+		line-height: 36px
+		color: #ffaf00
+		font-family: "Berlingske Serif Tx - Md"
+		width: 45px
+
+	&__content
+		padding-left: 15px
+		width: calc(100% - 45px)
+		
+	&__subtitle
+		line-height: 22px
+
+	&__text
+		font-size: 15px
+		line-height: 18px
+		color: #727272
+		margin-top: 7px
+
+		
+		
+
+		
+.contacts
+	&__row
+		margin-left: -15px
+		margin-right: -15px
+		
+	&__col
+		padding-left: 15px
+		padding-right: 15px
+		width: 25%
+		&_big
+			width: 70%
+			.contacts
+				&__text
+					column-count: 2
+		&_normal
+			width: 30%
+	&__title
+		font-size: 24px
+		font-family: "Berlingske Serif Tx - Md"
+		margin-bottom: 24px
+
+	&__block
+		margin-bottom: 12px
+		&:last-of-type
+			margin-bottom: 0
+		&-title
+			font-size: 13px
+			color: #727272
+			text-transform: uppercase
+		&-text
+			font-size: 16px
+			a
+				&.email
+					color: #00a3f2
+					border-color: #00a3f2
+					&:hover
+						border-color: transparent
+				
+		
+		
+
+	&__map
+		margin-top: 30px
+		margin-bottom: 30px
+	
+
+.widgets
+	position: relative
+	margin-left: -15px
+	margin-right: -15px
+	margin-top: 35px
+	padding-top: 45px
+	&:before
+		position: absolute
+		content: ''
+		top: 0
+		left: 15px
+		right: 15px
+		height: 1px
+		background-color: #e0e0e0
+	&__col
+		padding-left: 15px
+		padding-right: 15px
+		width: 50%
+
+	&__title
+		font-size: 24px
+		font-family: "Berlingske Serif Tx - Md";
+		margin-bottom: 25px
+		
+#vk_groups
+
+
+.program
+	max-width: 750px
+	width: 100%
+	margin-left: auto
+	margin-right: auto
+
+.other
+	padding-top: 55px
+	margin-top: 52px
+	border-top: 1px solid #e0e0e0
+	&__title
+		margin-bottom: 25px
+		
+
+.footer
+	position: relative
+	color: #fff
+	background-color: #00273a
+	margin-top: 100px
+	padding-top: 30px
+	padding-bottom: 65px
+	a
+		color: #fff
+	&:before
+		content: ''
+		position: absolute
+		top: -125px
+		left: 50%
+		transform: translateX(-50%)
+		height: 125px
+		display: block
+		width: 100%
+		background: url('../../img/footer.png') no-repeat center top
+	&__logo
+		margin-right: 50px
+	&__copy
+		width: 340px
+		font-size: 16px
+		line-height: 26px
+		padding-top: 15px
+		a
+			border-color: #fff
+			&:hover
+				border-color: transparent
+		
+	&__socials
+		margin-left: 100px
+		padding-bottom: 15px
+		a
+			border-color: rgba(255,255,255,.25)
+
+	&__feedback
+		margin-left: auto
+		text-align: center
+		
+	&__phone
+		font-size: 22px
+		font-weight: 700
+
+	&__btn
+		width: 240px
+		
+		
+.vk, .insta
+	display: block
+	background-position: center
+	background-repeat: no-repeat
+	width: 37px
+	height: 37px
+
+.vk
+	background-image: url('../../img/vk.png')
+
+.insta
+	background-image: url('../../img/instagram.png')
+
+.popup
+	position: relative
+	display: none
+	&_small
+		width: 465px
+		padding: 50px 50px
+	&_large
+		width: 1140px
+		padding: 30px 0 30px 30px
+	&_policy
+		.popup
+			&__title
+				padding-right: 30px
+				
+			&__wrap
+				max-height: 400px
+				overflow-x: auto
+				padding-right: 15px
+				
+	&__title
+		text-align: center
+		font-size: 30px
+		line-height: 40px
+		font-family: "Berlingske Serif Tx - Md"
+		margin-bottom: 25px
+	&__links
+		font-size: 22px
+		text-align: center
+		margin-top: -12px
+		margin-bottom: 25px
+		font-family: "Berlingske Serif Tx - Md"
+		ul
+			justify-content: center
+		li
+			margin-left: 10px
+			margin-right: 10px
+			color: #9e9e9e
+			border-bottom: 1px solid #9e9e9e
+			transition: .3s
+			cursor: pointer
+			&:hover
+				border-color: transparent
+			&.selected
+				color: #00a3f2
+				border-color: transparent !important
+		
+	&__input
+		margin-bottom: 10px
+		
+	&__btn
+		width: 240px
+		margin-left: auto
+		margin-right: auto
+		margin-top: 30px
+		
+	&__policy
+		margin-top: 20px
+		max-width: 300px
+		font-size: 14px
+		text-align: center
+		margin-left: auto
+		margin-right: auto
+		a
+			border-color: $color-1
+			&:hover
+				border-color: transparent
+		
+	.fancybox-close-small
+		display: none
+
+	&__close
+		cursor: pointer
+		top: 10px
+		right: 10px
+		position: absolute
+		width: 18px
+		height: 18px
+		transition: .3s
+		background: url('../../img/x.png') no-repeat center 
+		&:hover
+			transform: scale(.9)
+		
+	&__text
+		h2, h3, h4
+			display: block
+			font-family: "Berlingske Serif Tx - Md"
+		h2
+			font-size: 26px
+			margin-bottom: 10px
+		h3
+			font-size: 22px
+			margin-bottom: 5px
+		p
+			margin-bottom: 20px
+		
+.nameProgram
+	display: none
+
+.thanks
+	&__text
+		text-align: center
+		max-width: 220px
+		margin-left: auto
+		margin-right: auto
+		h2
+
+.pagination
+	text-align: center
+	margin-top: 25px
+	ul
+		display: inline-flex
+		border: 1px solid #e0e0e0
+		justify-content: center
+	li
+		border-right: 1px solid #e0e0e0
+		&:last-of-type
+			border-right: none
+		&.selected, &:hover
+			background-color: #00a3f2
+			a
+				color: #fff
+	a
+		display: flex
+		justify-content: center
+		align-items: center
+		width: 40px
+		height: 40px
+		text-align: center
